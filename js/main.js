@@ -52,16 +52,14 @@ var link;
 var ViewModel = function() {
 
     var self = this;
-
-    this.menu = ko.observable(false);
-
-    this.OpenClose = function() {
-        self.menu(!this.menu());
-    }
     this.userInput = ko.observable('');
+
     //filtering the list and the markers according to user input:
     this.filterList = ko.computed(() => {
         if (!self.userInput()) {
+            for (var i = 0; i < markers.length; i++) {
+                markers[i].setVisible(true);
+            }
             return listView();
         } else {
             return ko.utils.arrayFilter(listView(), (item) => {
@@ -76,17 +74,17 @@ var ViewModel = function() {
     }); //.filterList
     //showing the infowindow when user click the items in the list
     this.listViewClicked = function(index) {
-        var marker = listView()[index].marker
-        $(marker).trigger('click');
-        new google.maps.event.trigger(marker, 'click');
+        var marker = listView()[index].marker;
+        //i used google map library to trigger markers
+         google.maps.event.trigger(marker, 'click');
 
-    }
+    };
 
-} //end of View Model
+}; //end of View Model
 
 //----------map and markers----------
 function handelMapError() {
-    alert('google map is not working !!')
+    alert('google map is not working !!');
 }
 var map;
 
@@ -119,14 +117,14 @@ function initMap() {
         listView()[i].marker = marker;
         markers.push(marker);
     }
-    for (var i = 0; i < listView().length; i++) {
-        (listView()[i].marker).setMap(map);
+    for (var n = 0; n < listView().length; n++) {
+        (listView()[n].marker).setMap(map);
     }
 
     function populateInfoWindow(marker, infowindow) {
         //api part
         var city = marker.title;
-        var wikiUrl = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + city + "&format=json&callback=wikiCallback"
+        var wikiUrl = "https://en.wikipedia.org/w/api.php?action=opensearch&search=" + city + "&format=json&callback=wikiCallback";
         $.ajax({
             url: wikiUrl,
             dataType: "jsonp"
@@ -137,7 +135,7 @@ function initMap() {
             infowindow.setContent('<a href="https://en.wikipedia.org/wiki/' + articleStr + '">' + marker.title + '</a>');
 
         }).fail(function(jqXHR, textStatus) {
-            alert('Wiki is not working!')
+            alert('Wiki is not working!');
         });
 
 
@@ -168,7 +166,7 @@ ko.applyBindings(new ViewModel());
 // for the menu to open and close
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px"
+    document.getElementById("main").style.marginLeft = "250px";
 }
 
 function closeNav() {
