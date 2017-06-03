@@ -4,33 +4,28 @@
     <title>Map Project</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
 <h1 id='url'></h1>
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <input type="text" name="textInput" class="textInput" data-bind = "textInput : userInput">
-  <input type="submit" name="filter" value="filter" data-bind = "click: updateLocations" id="hide-markers">
-  <div  class="listView" id="list">
-      <ul id="list" data-bind = "foreach : listView , click: markerInfo">
-        <li data-bind= "text:name " class="listView" id="item"></li>
-      </ul>
-  </div>
-  <div  class="listView" id="updatedList">
-      <ul  data-bind = "foreach : listViewUpdated" id="list">
-        <li data-bind= "text :name" class="listView" id="item"></li>
+  <input type="text"  data-bind = "textInput : userInput" class ="textInput">
+  <div >
+      <ul  data-bind = "foreach: filterList">
+        <li data-bind = "text:name , click: $parent.listViewClicked.bind($data, $index())" class="listView"></li>
       </ul>
   </div>
 </div>
 
 <div id="main" class="menu">
-  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+  <span class="openbtn" onclick="openNav()" >&#9776; </span>
 </div>
 <div id="map"></div>
 <script src="js/jquery.min.js"></script>
 <script src="js/lib/knockout-3.2.0.js"></script>
-<script src="js/app.js"></script>
+<script src="js/main.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRmtVUk7wJRgyGa17oXTy3NyapnoLi8eM&callback=initMap"
-    async defer></script>
+    async defer onerror="handelMapError()"></script>
 </body>
 </html>

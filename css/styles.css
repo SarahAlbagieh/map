@@ -44,27 +44,40 @@ body {
     margin-left: 50px;
 }
 
-#main {
-    transition: margin-left .5s;
-    padding: 16px;
-}
-#url {
- display: none;
+.sidenav {
+    padding-top: 15px;
 }
 
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+.sidenav a {
+    font-size: 18px;
 }
+
 .menu {
     background-color: gray;
 }
+
 .textInput {
     margin-left: 5%
 }
+
 .listView {
     margin-top: 15%;
     margin-left: 10%;
     color: white;
     list-style: none;
 }
+
+.openbtn {
+    font-size:30px;
+    cursor:pointer;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+#url {
+    display: none;
+}
+
+@media screen and (max-height: 450px) {
